@@ -13,6 +13,7 @@ describe('top-secrets-backend routes', () => {
     pool.end();
   });
 
+
   it('users can signup with email and password with POST', async() => {
     const res = await request(app)
       .post('/api/v1/users')
@@ -47,11 +48,32 @@ describe('top-secrets-backend routes', () => {
       message: 'Signed in successfully',
       user,
     });
-
+  });
   
+  it('sets and retrieves currently signed in user by getting the JWT value of the cookie', async() => {
+    //create a user
+    await UserService.hash({
+      email: 'bob@bob.com', 
+      password: 'bobbob'
+    });
+
+    //get the user
+    await request(app)
+      .post('/api/v1/users/sessions')
+      .send({
+        email: 'bob@bob.com',
+        password: 'bobbob'
+      });
+
+    const res = await request(app).get('/api/v1/sessions/me');
+
+    expect(res.body).toEqual({
+      id: expect.any(String), 
+      email: 'bob@bob.com'
+    });
+
+
+
   });
 
-
-
-  
 });
