@@ -16,13 +16,13 @@ describe('top-secrets-backend routes', () => {
     const res = await request(app)
       .post('/api/v1/users')
       .send({ 
-        username: 'bob', 
+        email: 'bob@bob.com', 
         password: 'bobbob' 
       });
 
     expect(res.body).toEqual({
       id: expect.any(String), 
-      username: 'bob'
+      email: 'bob@bob.com'
     });
 
 
