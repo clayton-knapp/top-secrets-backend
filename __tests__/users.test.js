@@ -71,7 +71,9 @@ describe('top-secrets-backend routes', () => {
 
     expect(res.body).toEqual({
       id: expect.any(String), 
-      email: 'bob@bob.com'
+      email: 'bob@bob.com',
+      exp: expect.any(Number),
+      iat: expect.any(Number)
     });
 
 
