@@ -51,6 +51,8 @@ describe('top-secrets-backend routes', () => {
   });
   
   it('sets and retrieves currently signed in user by getting the JWT value of the cookie', async() => {
+    const agent = request.agent(app);
+
     //create a user
     await UserService.hash({
       email: 'bob@bob.com', 
@@ -58,14 +60,14 @@ describe('top-secrets-backend routes', () => {
     });
 
     //get the user
-    await request(app)
+    await agent
       .post('/api/v1/users/sessions')
       .send({
         email: 'bob@bob.com',
         password: 'bobbob'
       });
 
-    const res = await request(app).get('/api/v1/sessions/me');
+    const res = await agent.get('/api/v1/users/sessions/me');
 
     expect(res.body).toEqual({
       id: expect.any(String), 
