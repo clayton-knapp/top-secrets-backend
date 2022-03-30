@@ -82,4 +82,46 @@ describe('top-secrets-backend routes', () => {
 
   //Logged in users can create new secrets by POSTing to /api/v1/secrets
 
+  it('lets logged in user create a secret', async() => {
+    const agent = request.agent(app);
+
+    const expected =
+      { 
+        id: expect.any(String),
+        title: 'My big secret', 
+        description: 'I love money',
+        createdAt: expect.any(String)
+      };
+
+    //TEST WITH SIGNED IN USER
+    // create a user
+    await agent
+      .post('/api/v1/users')
+      .send({ 
+        email: 'bob@bob.com', 
+        password: 'bobbob' 
+      });
+
+
+    //sign in user
+    await agent
+      .post('/api/v1/users/sessions')
+      .send({ 
+        email: 'bob@bob.com', 
+        password: 'bobbob' 
+      });
+      
+
+    const res = await agent //do i need agent here?
+      .post('/api/v1/secrets')
+      .send({ 
+        title: 'My big secret', 
+        description: 'I love money',
+      });
+
+    expect(res.body).toEqual(expected);
+
+  });
+
 });
+
