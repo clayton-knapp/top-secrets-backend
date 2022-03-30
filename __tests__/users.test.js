@@ -80,7 +80,7 @@ describe('top-secrets-backend routes', () => {
 
   it('logs out a user', async() => {
 
-    //first we sign up a user
+    // first we sign up a user
     // await UserService.hash({
     //   email: 'bob@bob.com', 
     //   password: 'bobbob'

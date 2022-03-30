@@ -17,8 +17,18 @@ describe('top-secrets-backend routes', () => {
   it('returns a list of secrets', async() => {
 
     const expected = [
-      { title: 'My cats name', description: 'Sterling' },
-      { title: 'My dogs name', description: 'trick question' }
+      { 
+        id: expect.any(String),
+        title: 'My cats name', 
+        description: 'Sterling',
+        createdAt: expect.any(String)
+      },
+      { 
+        id: expect.any(String),
+        title: 'My dogs name', 
+        description: 'trick question',
+        createdAt: expect.any(String)
+      }
     ];
 
     const res = await request(app)
