@@ -16,18 +16,7 @@ describe('top-secrets-backend routes', () => {
 
 
   it('returns a list of secrets for logged in user', async() => {
-    //create a user
-    await UserService.hash({
-      email: 'bob@bob.com', 
-      password: 'bobbob'
-    });
-
-    //sign in the user
-    await UserService.signIn(
-      {
-        email: 'bob@bob.com',
-        password: 'bobbob'
-      });
+    const agent = request.agent(app);
 
     const expected = [
       { 
@@ -44,7 +33,47 @@ describe('top-secrets-backend routes', () => {
       }
     ];
 
-    const res = await request(app)
+    // //create a user
+    // await UserService.hash({
+    //   email: 'cat@cat.com', 
+    //   password: 'cat'
+    // });
+
+    // //sign in the user
+    // await UserService.signIn(
+    //   {
+    //     email: 'cat@cat.com', 
+    //     password: 'cat'
+    //   });
+
+    // Test authentication for the endpoint
+    // No user signed in:
+    let res = await agent
+      .get('/api/v1/secrets');
+
+    // Should get an "unauthenticated" status:
+    expect(res.status).toEqual(401);
+
+
+    //TEST WITH SIGNED IN USER
+    // create a user
+    await agent
+      .post('/api/v1/users')
+      .send({ 
+        email: 'bob@bob.com', 
+        password: 'bobbob' 
+      });
+
+
+    //sign in user
+    await agent
+      .post('/api/v1/users/sessions')
+      .send({ 
+        email: 'bob@bob.com', 
+        password: 'bobbob' 
+      });
+
+    res = await agent //do i need agent here?
       .get('/api/v1/secrets');
 
     expect(res.body).toEqual(expected);
