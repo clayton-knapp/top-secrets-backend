@@ -67,7 +67,7 @@ describe('top-secrets-backend routes', () => {
         password: 'bobbob'
       });
 
-    const res = await agent.get('/api/v1/users/sessions/me');
+    const res = await agent.get('/api/v1/users/sessions');
 
     expect(res.body).toEqual({
       id: expect.any(String), 
