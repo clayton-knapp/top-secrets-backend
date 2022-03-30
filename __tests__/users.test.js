@@ -75,9 +75,39 @@ describe('top-secrets-backend routes', () => {
       exp: expect.any(Number),
       iat: expect.any(Number)
     });
-
-
-
   });
+
+
+  // it('logs out a user', async() => {
+
+  //   //first we sign up a user
+  //   await UserService.hash({
+  //     email: 'bob@bob.com', 
+  //     password: 'bobbob'
+  //   });
+
+
+  //   //then we test signing in the user
+  //   await request(app)
+  //     .post('/api/v1/users/sessions')
+  //     .send({
+  //       email: 'bob@bob.com',
+  //       password: 'bobbob'
+  //     });
+
+
+  //   // then we delete the user
+
+  //   const res = await request(app)
+  //     .delete('/api/v1/users/sessions');
+    
+
+  //   expect(res.body).toEqual({
+  //     id: expect.any(String), 
+  //     email: 'bob@bob.com',
+  //     exp: expect.any(Number),
+  //     iat: expect.any(Number)
+  //   });
+  // });
 
 });
