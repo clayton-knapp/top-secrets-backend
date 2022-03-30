@@ -78,36 +78,34 @@ describe('top-secrets-backend routes', () => {
   });
 
 
-  // it('logs out a user', async() => {
+  it('logs out a user', async() => {
 
-  //   //first we sign up a user
-  //   await UserService.hash({
-  //     email: 'bob@bob.com', 
-  //     password: 'bobbob'
-  //   });
-
-
-  //   //then we test signing in the user
-  //   await request(app)
-  //     .post('/api/v1/users/sessions')
-  //     .send({
-  //       email: 'bob@bob.com',
-  //       password: 'bobbob'
-  //     });
+    //first we sign up a user
+    // await UserService.hash({
+    //   email: 'bob@bob.com', 
+    //   password: 'bobbob'
+    // });
 
 
-  //   // then we delete the user
+    // //then we test signing in the user
+    // await request(app)
+    //   .post('/api/v1/users/sessions')
+    //   .send({
+    //     email: 'bob@bob.com',
+    //     password: 'bobbob'
+    //   });
 
-  //   const res = await request(app)
-  //     .delete('/api/v1/users/sessions');
+
+    // then we delete the user
+
+    const res = await request(app)
+      .delete('/api/v1/users/sessions');
     
 
-  //   expect(res.body).toEqual({
-  //     id: expect.any(String), 
-  //     email: 'bob@bob.com',
-  //     exp: expect.any(Number),
-  //     iat: expect.any(Number)
-  //   });
-  // });
+    expect(res.body).toEqual({
+      success: true, 
+      message: 'Signed out successfully!'
+    });
+  });
 
 });
